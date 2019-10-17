@@ -1,12 +1,19 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {withFormik, Form, Field} from "formik";
 import axios from "axios";
 import * as Yup from "yup";
+import { setUseProxies } from 'immer';
 
 
 
 
-const UserForm = ( { values, touched, errors}) => {
+const UserForm = ( { values, touched, errors, status }) => {
+
+    const [user, setUser] = useState([]);
+    useEffect(() => {
+        status && setUser(user => [...user, status])
+    }, [status])
+
 
 
 return (
@@ -25,10 +32,15 @@ return (
                 <Field type = "checkbox" name = "terms" checked = {values.terms}/>
             </label>
             <button type= "submit">Submit!</button>
-
-
         </Form>
-
+         {user.map(person => (
+            <ul key ={person.id}>
+                <li>Name: {person.name}</li>
+                <li>Email: {person.email}</li>
+              
+              
+            </ul>
+        ))} 
 
 
 
@@ -57,7 +69,7 @@ const FormikUserForm = withFormik({
     handleSubmit(values, {setStatus}) {
         axios.post('https://reqres.in/api/users', values)
             .then(res => {console.log(res); console.log(values); setStatus(res.data); })
-            .catach(err => console.log(err.response));
+            .catch(err => console.log(err.response));
     }
 
 
