@@ -20,3 +20,27 @@
 .App-link {
   color: #09d3ac;
 }
+
+.textbox {
+  width:10%;
+  margin: .25% 0;
+}
+
+button {
+  width:5%;
+
+}
+.field-cont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: red;
+ 
+}
+.checkbox-container {
+  margin: .25% 0;
+}
+
+.output {
+  font-size: 2rem;
+}
