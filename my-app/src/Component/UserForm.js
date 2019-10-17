@@ -52,9 +52,13 @@ const FormikUserForm = withFormik({
         name: (Yup.string().required(), Yup.string().min("2")), 
         email: (Yup.string().required(), Yup.string().min("2")),
         password: (Yup.string().required(), Yup.string().min("6"))
-    })
+    }),
 
-
+    handleSubmit(values, {setStatus}) {
+        axios.post('https://reqres.in/api/users', values)
+            .then(res => {console.log(res); console.log(values); setStatus(res.data); })
+            .catach(err => console.log(err.response));
+    }
 
 
 })(UserForm);
